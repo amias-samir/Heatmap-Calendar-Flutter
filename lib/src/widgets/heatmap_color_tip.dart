@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import '../../heatmap_calendar_flutter.dart';
 import '../data/heatmap_color.dart';
 import '../enums/heatmap_color_mode.dart';
 
@@ -18,6 +19,18 @@ class HeatMapColorTip extends StatelessWidget {
   /// [ColorMode.opacity] requires just one colorsets value and changes color
   /// [ColorMode.color] changes colors based on [colorsets] thresholds key value.
   final ColorMode colorMode;
+
+  /// HeatmapCalendarType changes the UI mode of blocks.
+  ///
+  /// [HeatmapCalendarType.intensity] requires just the intensity value to change the color
+  /// dynamically based on hightest value of [datasets].
+  /// [HeatmapCalendarType.widgets] requires the list of widgets (list of events/activities) on the same date.
+  ///
+  /// Default value is [HeatmapCalendarType.intensity].
+  final HeatmapCalendarType heatmapType;
+
+  /// Show widget legends of the heatmap if [HeatmapCalendarType] is [HeatmapCalendarType.widgets] at the below.
+  final List<HeatmapChildrenData>? heatmapWidgetLegends;
 
   /// The widget which shows left side of [HeatMapColorTip].
   ///
@@ -38,6 +51,8 @@ class HeatMapColorTip extends StatelessWidget {
   const HeatMapColorTip({
     Key? key,
     required this.colorMode,
+    required this.heatmapType,
+    this.heatmapWidgetLegends,
     this.colorsets,
     this.leftWidget,
     this.rightWidget,
@@ -53,6 +68,7 @@ class HeatMapColorTip extends StatelessWidget {
       ? _heatmapListColor()
       : _heatmapListOpacity();
 
+
   /// Evenly show every colors from lowest to highest.
   List<Widget> _heatmapListColor() {
     List<Widget> children = [];
@@ -67,6 +83,32 @@ class HeatMapColorTip extends StatelessWidget {
 
     return children;
   }
+
+
+  /// Show legend with icon and label.
+  Widget _heatmapWidgetLegendList() {
+    if(heatmapWidgetLegends != null && heatmapWidgetLegends!.isNotEmpty){
+      return Wrap(
+        spacing: 4.0,
+        runSpacing: 2,
+        children: heatmapWidgetLegends!.map(
+                (legendData) => Chip(
+              label: _defaultText(legendData.label),
+              // color: MaterialStateProperty.all(null),
+              color: MaterialStateProperty.all(const Color(0x00000000)),
+              shape:  RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: const BorderSide(color: Colors.transparent, width: 0), // Transparent border
+              ),
+              labelPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 2 ),
+              avatar: legendData.child,)).toList(),
+      );
+    }
+
+    // return [ const SizedBox()];
+    return  const SizedBox();
+  }
+
 
   /// Evenly show every colors from transparent to non-transparent.
   List<Widget> _heatmapListOpacity() {
@@ -104,14 +146,14 @@ class HeatMapColorTip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
-      child: Row(
+      child: heatmapType == HeatmapCalendarType.intensity? Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
+        children:   <Widget>[
           leftWidget ?? _defaultText('less'),
           ..._heatmapList(),
           rightWidget ?? _defaultText('more'),
-        ],
-      ),
+        ] ,
+      ): _heatmapWidgetLegendList(),
     );
   }
 }

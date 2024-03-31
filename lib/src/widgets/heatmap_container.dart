@@ -50,7 +50,7 @@ class HeatMapContainer extends StatelessWidget {
             height: size,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: selectedColor,
+              color: heatmapType == HeatmapCalendarType.widgets ?Colors.transparent :selectedColor,
               borderRadius:
                   BorderRadius.all(Radius.circular(borderRadius ?? 5)),
             ),
@@ -63,7 +63,7 @@ class HeatMapContainer extends StatelessWidget {
                 _widgetsFromData(heatmapData),
 
                 Align(
-                  alignment: Alignment.bottomRight,
+                  alignment: Alignment.bottomCenter,
                   child:  Text(
                     date.day.toString(),
                     style: TextStyle(

@@ -59,6 +59,9 @@ class HeatMap extends StatefulWidget {
   /// Default value is [HeatmapCalendarType.intensity].
   final HeatmapCalendarType heatmapType;
 
+  /// Show widget legends of the heatmap if [HeatmapCalendarType] is [HeatmapCalendarType.widgets] at the below.
+  final List<HeatmapChildrenData>? heatmapWidgetLegends;
+
   /// Function that will be called when a block is clicked.
   ///
   /// Parameter gives clicked [DateTime] value.
@@ -103,6 +106,7 @@ class HeatMap extends StatefulWidget {
     required this.colorsets,
     this.colorMode = ColorMode.opacity,
     this.heatmapType = HeatmapCalendarType.intensity,
+    this.heatmapWidgetLegends,
     this.startDate,
     this.endDate,
     this.textColor,
@@ -165,6 +169,8 @@ class _HeatMap extends State<HeatMap> {
         if (widget.showColorTip == true)
           HeatMapColorTip(
             colorMode: widget.colorMode,
+            heatmapType: widget.heatmapType,
+            heatmapWidgetLegends: widget.heatmapWidgetLegends,
             colorsets: widget.colorsets,
             leftWidget: widget.colorTipHelper?[0],
             rightWidget: widget.colorTipHelper?[1],
