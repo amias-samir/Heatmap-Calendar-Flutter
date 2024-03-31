@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:heatmap_calendar_flutter/src/data/heatmap_datasets.dart';
+import '../../heatmap_calendar_flutter.dart';
 import './heatmap_month_text.dart';
 import './heatmap_column.dart';
 import '../enums/heatmap_color_mode.dart';
@@ -56,6 +57,15 @@ class HeatMapPage extends StatelessWidget {
   /// [ColorMode.color] changes colors based on [colorsets] thresholds key value.
   final ColorMode colorMode;
 
+  /// HeatmapCalendarType changes the UI mode of blocks.
+  ///
+  /// [HeatmapCalendarType.intensity] requires just the intensity value to change the color
+  /// dynamically based on hightest value of [datasets].
+  /// [HeatmapCalendarType.widgets] requires the list of widgets (list of events/activities) on the same date.
+  ///
+  /// Default value is [HeatmapCalendarType.intensity].
+  final HeatmapCalendarType heatmapType;
+
   /// The colorsets which give the color value for its thresholds key value.
   ///
   /// Be aware that first Color is the maximum value if [ColorMode] is [ColorMode.opacity].
@@ -79,6 +89,7 @@ class HeatMapPage extends StatelessWidget {
   HeatMapPage({
     Key? key,
     required this.colorMode,
+    required this.heatmapType,
     required this.startDate,
     required this.endDate,
     this.size,
@@ -119,6 +130,7 @@ class HeatMapPage extends StatelessWidget {
             ? DateUtil.changeDay(startDate, datePos + 6)
             : endDate,
         colorMode: colorMode,
+        heatmapType: heatmapType,
         numDays: min(endDate.difference(_firstDay).inDays + 1, 7),
         size: size,
         fontSize: fontSize,

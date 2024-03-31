@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'children_item_datasets.dart';
 
 class HeatmapData {
 
@@ -8,7 +8,9 @@ class HeatmapData {
   final int? intensity;
 
   ///The [heatMapChildren]  is used to show the multiple actions on the same date in the heatmap.
-  final List<Widget>? heatMapChildren;
+  final List<HeatmapChildrenData>? heatMapChildren;
 
 
 }
+
+

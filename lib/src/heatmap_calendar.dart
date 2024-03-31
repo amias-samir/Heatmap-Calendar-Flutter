@@ -60,6 +60,14 @@ class HeatMapCalendar extends StatefulWidget {
   /// Default value is [ColorMode.opacity].
   final ColorMode colorMode;
 
+
+  /// HeatmapCalendarType changes the UI mode of blocks.
+  ///
+  /// [HeatmapCalendarType.intensity] requires just the intensity value to change the color
+  /// dynamically based on hightest value of [datasets].
+  /// [HeatmapCalendarType.widgets] requires the list of widgets (list of events/activities) on the same date.
+  ///
+  /// Default value is [HeatmapCalendarType.intensity].
   final HeatmapCalendarType heatmapType;
 
   /// Function that will be called when a block is clicked.

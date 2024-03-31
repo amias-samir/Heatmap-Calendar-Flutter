@@ -58,6 +58,15 @@ class HeatMapCalendarRow extends StatelessWidget {
   /// [ColorMode.color] changes colors based on [colorsets] thresholdsc key value.
   final ColorMode colorMode;
 
+  /// HeatmapCalendarType changes the UI mode of blocks.
+  ///
+  /// [HeatmapCalendarType.intensity] requires just the intensity value to change the color
+  /// dynamically based on hightest value of [datasets].
+  /// [HeatmapCalendarType.widgets] requires the list of widgets (list of events/activities) on the same date.
+  ///
+  /// Default value is [HeatmapCalendarType.intensity].
+  final HeatmapCalendarType heatmapType;
+
   /// The integer value of the maximum value for the highest value of the month.
   final int? maxValue;
 
@@ -71,6 +80,7 @@ class HeatMapCalendarRow extends StatelessWidget {
     required this.startDate,
     required this.endDate,
     required this.colorMode,
+    required this.heatmapType,
     this.size,
     this.fontSize,
     this.defaultColor,
@@ -110,6 +120,7 @@ class HeatMapCalendarRow extends StatelessWidget {
                   date: DateTime(startDate.year, startDate.month,
                       startDate.day - startDate.weekday % 7 + i),
                   backgroundColor: defaultColor,
+                  heatmapType: heatmapType,
                   size: size,
                   fontSize: fontSize,
                   textColor: textColor,

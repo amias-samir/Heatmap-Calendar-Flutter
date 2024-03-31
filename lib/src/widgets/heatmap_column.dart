@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heatmap_calendar_flutter/src/data/heatmap_datasets.dart';
+import '../../heatmap_calendar_flutter.dart';
 import '../enums/heatmap_color_mode.dart';
 import './heatmap_container.dart';
 import '../utils/date_util.dart';
@@ -53,6 +54,15 @@ class HeatMapColumn extends StatelessWidget {
   /// [ColorMode.color] changes colors based on [colorsets] thresholdsc key value.
   final ColorMode colorMode;
 
+  /// HeatmapCalendarType changes the UI mode of blocks.
+  ///
+  /// [HeatmapCalendarType.intensity] requires just the intensity value to change the color
+  /// dynamically based on hightest value of [datasets].
+  /// [HeatmapCalendarType.widgets] requires the list of widgets (list of events/activities) on the same date.
+  ///
+  /// Default value is [HeatmapCalendarType.intensity].
+  final HeatmapCalendarType heatmapType;
+
   /// The double value of [HeatMapContainer]'s borderRadius.
   final double? borderRadius;
 
@@ -79,6 +89,7 @@ class HeatMapColumn extends StatelessWidget {
     required this.startDate,
     required this.endDate,
     required this.colorMode,
+    required this.heatmapType,
     required this.numDays,
     this.size,
     this.fontSize,
@@ -98,6 +109,7 @@ class HeatMapColumn extends StatelessWidget {
           (i) => HeatMapContainer(
             date: DateUtil.changeDay(startDate, i),
             backgroundColor: defaultColor,
+            heatmapType: heatmapType,
             size: size,
             fontSize: fontSize,
             textColor: textColor,

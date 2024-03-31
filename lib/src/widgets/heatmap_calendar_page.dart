@@ -44,6 +44,13 @@ class HeatMapCalendarPage extends StatelessWidget {
   /// [ColorMode.color] changes colors based on [colorsets] thresholds key value.
   final ColorMode colorMode;
 
+  /// HeatmapCalendarType changes the UI mode of blocks.
+  ///
+  /// [HeatmapCalendarType.intensity] requires just the intensity value to change the color
+  /// dynamically based on hightest value of [datasets].
+  /// [HeatmapCalendarType.widgets] requires the list of widgets (list of events/activities) on the same date.
+  ///
+  /// Default value is [HeatmapCalendarType.intensity].
   final HeatmapCalendarType heatmapType;
 
   /// The colorsets which give the color value for its thresholds key value.
@@ -95,6 +102,7 @@ class HeatMapCalendarPage extends StatelessWidget {
             startDate: date.keys.first,
             endDate: date.values.first,
             colorMode: colorMode,
+            heatmapType: heatmapType,
             size: size,
             fontSize: fontSize,
             defaultColor: defaultColor,
