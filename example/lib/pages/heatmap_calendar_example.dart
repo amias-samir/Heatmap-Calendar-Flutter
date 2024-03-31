@@ -91,7 +91,7 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
               ),
             ),
             _textField('YYYYMMDD', dateController),
-            _textField('Heat Level', heatLevelController),
+            isWidgetMode ? SizedBox() : _textField('Heat Level', heatLevelController),
             ElevatedButton(
               child: const Text('COMMIT'),
               onPressed: () {
@@ -126,7 +126,7 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text('Opacity Mode'),
+                const Text('Intensity Mode'),
                 CupertinoSwitch(
                   value: isWidgetMode,
                   onChanged: (value) {
