@@ -1,7 +1,6 @@
 library heatmap_calendar_flutter;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/heatmap.dart';
+export 'src/heatmap_calendar.dart';
+export 'src/enums/heatmap_color_mode.dart';
+export 'src/enums/heatmap_type.dart';
