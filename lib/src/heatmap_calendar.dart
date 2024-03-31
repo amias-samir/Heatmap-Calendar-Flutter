@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heatmap_calendar_flutter/heatmap_calendar_flutter.dart';
 import './enums/heatmap_color_mode.dart';
 import './widgets/heatmap_calendar_page.dart';
 import './widgets/heatmap_color_tip.dart';
@@ -7,7 +8,7 @@ import './utils/widget_util.dart';
 
 class HeatMapCalendar extends StatefulWidget {
   /// The datasets which fill blocks based on its value.
-  final Map<DateTime, int>? datasets;
+  final Map<DateTime, HeatmapData>? datasets;
 
   /// The color value of every block's default color.
   final Color? defaultColor;
@@ -59,10 +60,12 @@ class HeatMapCalendar extends StatefulWidget {
   /// Default value is [ColorMode.opacity].
   final ColorMode colorMode;
 
+  final HeatmapCalendarType heatmapType;
+
   /// Function that will be called when a block is clicked.
   ///
   /// Paratmeter gives clicked [DateTime] value.
-  final Function(DateTime)? onClick;
+  final Function(DateTime, HeatmapData)? onClick;
 
   /// Function that will be called when month is changed.
   ///
@@ -91,6 +94,7 @@ class HeatMapCalendar extends StatefulWidget {
     Key? key,
     required this.colorsets,
     this.colorMode = ColorMode.opacity,
+    this.heatmapType = HeatmapCalendarType.intensity,
     this.defaultColor,
     this.datasets,
     this.initDate,
@@ -218,6 +222,7 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
           HeatMapCalendarPage(
             baseDate: _currentDate ?? DateTime.now(),
             colorMode: widget.colorMode,
+            heatmapType: widget.heatmapType,
             flexible: widget.flexible,
             size: widget.size,
             fontSize: widget.fontSize,

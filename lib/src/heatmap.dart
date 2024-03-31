@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heatmap_calendar_flutter/src/data/heatmap_datasets.dart';
 import './widgets/heatmap_page.dart';
 import './widgets/heatmap_color_tip.dart';
 import './enums/heatmap_color_mode.dart';
@@ -19,7 +20,7 @@ class HeatMap extends StatefulWidget {
   final DateTime? endDate;
 
   /// The datasets which fill blocks based on its value.
-  final Map<DateTime, int>? datasets;
+  final Map<DateTime, HeatmapData>? datasets;
 
   /// The color value of every block's default color.
   final Color? defaultColor;
@@ -51,7 +52,7 @@ class HeatMap extends StatefulWidget {
   /// Function that will be called when a block is clicked.
   ///
   /// Parameter gives clicked [DateTime] value.
-  final Function(DateTime)? onClick;
+  final Function(DateTime, HeatmapData)? onClick;
 
   /// The margin value for every block.
   final EdgeInsets? margin;

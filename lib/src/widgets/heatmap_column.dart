@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heatmap_calendar_flutter/src/data/heatmap_datasets.dart';
 import '../enums/heatmap_color_mode.dart';
 import './heatmap_container.dart';
 import '../utils/date_util.dart';
@@ -35,7 +36,7 @@ class HeatMapColumn extends StatelessWidget {
   ///
   /// datasets keys have to greater or equal to [startDate] and
   /// smaller or equal to [endDate].
-  final Map<DateTime, int>? datasets;
+  final Map<DateTime, HeatmapData>? datasets;
 
   /// The text color value of [HeatMapContainer].
   final Color? textColor;
@@ -61,7 +62,7 @@ class HeatMapColumn extends StatelessWidget {
   /// Function that will be called when a block is clicked.
   ///
   /// Paratmeter gives clicked [DateTime] value.
-  final Function(DateTime)? onClick;
+  final Function(DateTime, HeatmapData)? onClick;
 
   /// The integer value of the maximum value for the highest value of the month.
   final int? maxValue;
@@ -121,7 +122,7 @@ class HeatMapColumn extends StatelessWidget {
                     ? colorsets?.values.first.withOpacity((datasets?[DateTime(
                                 startDate.year,
                                 startDate.month,
-                                startDate.day + i - (startDate.weekday % 7))] ??
+                                startDate.day + i - (startDate.weekday % 7))]?.intensity ??
                             1) /
                         (maxValue ?? 1))
                     // Else if colorMode is ColorMode.Color.
@@ -131,8 +132,12 @@ class HeatMapColumn extends StatelessWidget {
                     : DatasetsUtil.getColor(
                         colorsets,
                         datasets?[DateTime(startDate.year, startDate.month,
-                            startDate.day + i - (startDate.weekday % 7))])
+                            startDate.day + i - (startDate.weekday % 7))]?.intensity)
                 : null,
+            heatmapData: datasets![DateTime(
+                startDate.year,
+                startDate.month,
+                startDate.day + i - (startDate.weekday % 7))],
           ),
         ),
         // Fill emptySpace list only if given wek doesn't have 7 days.

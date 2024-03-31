@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:heatmap_calendar_flutter/heatmap_calendar_flutter.dart';
 import '../data/heatmap_color.dart';
 
 class HeatMapContainer extends StatelessWidget {
   final DateTime date;
+  final HeatmapData? heatmapData;
   final double? size;
   final double? fontSize;
   final double? borderRadius;
@@ -11,11 +13,12 @@ class HeatMapContainer extends StatelessWidget {
   final Color? textColor;
   final EdgeInsets? margin;
   final bool? showText;
-  final Function(DateTime dateTime)? onClick;
+  final Function(DateTime dateTime, HeatmapData heatmapData)? onClick;
 
   const HeatMapContainer({
     Key? key,
     required this.date,
+    this.heatmapData,
     this.margin,
     this.size,
     this.fontSize,
@@ -59,7 +62,7 @@ class HeatMapContainer extends StatelessWidget {
           ),
         ),
         onTap: () {
-          onClick != null ? onClick!(date) : null;
+          onClick != null ? onClick!(date, heatmapData?? const HeatmapData()) : null;
         },
       ),
     );

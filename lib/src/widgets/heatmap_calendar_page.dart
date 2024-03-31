@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:heatmap_calendar_flutter/heatmap_calendar_flutter.dart';
+import 'package:heatmap_calendar_flutter/src/data/heatmap_datasets.dart';
 import '../enums/heatmap_color_mode.dart';
 import './heatmap_calendar_row.dart';
 import '../utils/date_util.dart';
@@ -27,7 +29,7 @@ class HeatMapCalendarPage extends StatelessWidget {
   final double? fontSize;
 
   /// The datasets which fill blocks based on its value.
-  final Map<DateTime, int>? datasets;
+  final Map<DateTime, HeatmapData>? datasets;
 
   /// The default background color value of every blocks
   final Color? defaultColor;
@@ -41,6 +43,8 @@ class HeatMapCalendarPage extends StatelessWidget {
   /// dynamically based on hightest value of [datasets].
   /// [ColorMode.color] changes colors based on [colorsets] thresholds key value.
   final ColorMode colorMode;
+
+  final HeatmapCalendarType heatmapType;
 
   /// The colorsets which give the color value for its thresholds key value.
   ///
@@ -59,12 +63,13 @@ class HeatMapCalendarPage extends StatelessWidget {
   /// Function that will be called when a block is clicked.
   ///
   /// Paratmeter gives clicked [DateTime] value.
-  final Function(DateTime)? onClick;
+  final Function(DateTime, HeatmapData)? onClick;
 
   HeatMapCalendarPage({
     Key? key,
     required this.baseDate,
     required this.colorMode,
+    required this.heatmapType,
     this.flexible,
     this.size,
     this.fontSize,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heatmap_calendar_flutter/heatmap_calendar_flutter.dart';
 import '../enums/heatmap_color_mode.dart';
 import '../utils/datasets_util.dart';
 import './heatmap_container.dart';
@@ -48,7 +49,7 @@ class HeatMapCalendarRow extends StatelessWidget {
   ///
   /// datasets keys have to greater or equal to [startDate] and
   /// smaller or equal to [endDate].
-  final Map<DateTime, int>? datasets;
+  final Map<DateTime, HeatmapData>? datasets;
 
   /// ColorMode changes the color mode of blocks.
   ///
@@ -63,7 +64,7 @@ class HeatMapCalendarRow extends StatelessWidget {
   /// Function that will be called when a block is clicked.
   ///
   /// Paratmeter gives clicked [DateTime] value.
-  final Function(DateTime)? onClick;
+  final Function(DateTime, HeatmapData)? onClick;
 
   HeatMapCalendarRow({
     Key? key,
@@ -135,7 +136,7 @@ class HeatMapCalendarRow extends StatelessWidget {
                                           startDate.month,
                                           startDate.day +
                                               i -
-                                              (startDate.weekday % 7))] ??
+                                              (startDate.weekday % 7))]?.intensity ??
                                   1) /
                               (maxValue ?? 1))
                           // Else if colorMode is ColorMode.Color.
@@ -147,8 +148,12 @@ class HeatMapCalendarRow extends StatelessWidget {
                               datasets?[DateTime(
                                   startDate.year,
                                   startDate.month,
-                                  startDate.day + i - (startDate.weekday % 7))])
+                                  startDate.day + i - (startDate.weekday % 7))]?.intensity)
                       : null,
+                  heatmapData: datasets![DateTime(
+                      startDate.year,
+                      startDate.month,
+                      startDate.day + i - (startDate.weekday % 7))],
                 ),
         ),
         super(key: key);
