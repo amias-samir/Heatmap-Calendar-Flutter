@@ -16,6 +16,7 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
   final TextEditingController heatLevelController = TextEditingController();
 
   bool isOpacityMode = true;
+  bool isWidgetMode = true;
 
   Map<DateTime, HeatmapData> heatMapDatasets = {};
 
@@ -63,7 +64,7 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                 child: HeatMapCalendar(
                   flexible: true,
                   datasets: heatMapDatasets,
-                  heatmapType: HeatmapCalendarType.widgets,
+                  heatmapType: isWidgetMode ? HeatmapCalendarType.widgets : HeatmapCalendarType.intensity,
                   colorMode:
                       isOpacityMode ? ColorMode.opacity : ColorMode.color,
                   colorsets: const {
@@ -120,6 +121,21 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                   },
                 ),
                 const Text('Opacity Mode'),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text('Opacity Mode'),
+                CupertinoSwitch(
+                  value: isWidgetMode,
+                  onChanged: (value) {
+                    setState(() {
+                      isWidgetMode = value;
+                    });
+                  },
+                ),
+                const Text('Widget Mode'),
               ],
             ),
           ],
