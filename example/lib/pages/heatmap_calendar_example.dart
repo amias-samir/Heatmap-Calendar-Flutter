@@ -13,7 +13,7 @@ class HeatMapCalendarExample extends StatefulWidget {
 
 class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
   final TextEditingController dateController = TextEditingController();
-  final TextEditingController heatLevelController = TextEditingController();
+  final TextEditingController heatLevelController = TextEditingController(text: "1");
 
   bool isOpacityMode = true;
   bool isWidgetMode = true;

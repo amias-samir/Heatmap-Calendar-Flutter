@@ -11,7 +11,7 @@ class HeatMapExample extends StatefulWidget {
 
 class _HeatMapExample extends State<HeatMapExample> {
   final TextEditingController dateController = TextEditingController();
-  final TextEditingController heatLevelController = TextEditingController();
+  final TextEditingController heatLevelController = TextEditingController(text: '1');
 
   bool isOpacityMode = true;
 
