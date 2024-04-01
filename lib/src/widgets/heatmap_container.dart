@@ -96,8 +96,14 @@ class HeatMapContainer extends StatelessWidget {
         return _overlappedUI(heatmapData);
       }
 
+      if(heatmapData.heatMapChildren!.length == 1){
+        return SizedBox(
+          height: 20.0, width: 20.0, child: heatmapData.heatMapChildren![0].child,
+        );
+      }
+
       return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [... heatmapData.heatMapChildren!.map((childWidget) => childWidget.child).toList()
         ],
